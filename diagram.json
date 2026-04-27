@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "User",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0 },
+    { "type": "wokwi-breadboard-half", "id": "bb1", "top": 180, "left": 0 },
+    { "type": "wokwi-led", "id": "led1", "top": 130, "left": 40, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": 130, "left": 90, "attrs": { "color": "green" } }
+  ],
+  "connections": [
+    
+    [ "esp:D2", "bb1:5.j", "red", [ "v0" ] ],
+    [ "bb1:5.f", "led1:A", "red", [ "v0" ] ],
+    [ "esp:GND.1", "led1:C", "black", [ "v0" ] ],
+
+    
+    [ "esp:D4", "bb1:10.j", "green", [ "v0" ] ],
+    [ "bb1:10.f", "led2:A", "green", [ "v0" ] ],
+    [ "esp:GND.2", "led2:C", "black", [ "v0" ] ]
+  ]
+}
