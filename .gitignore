@@ -1,5 +1,10 @@
-
-.pio
-*.toml
+# PlatformIO local build files and libraries
+.pio/
 .vscode/
 
+# Project configuration files - DO NOT ignore these if others need to build the project
+# *.ini  <-- Keep this tracked (e.g., platformio.ini)
+# *.toml <-- Keep this tracked (e.g., pyproject.toml)
+
+# Local/Private configuration (standard practice)
+platformio_override.ini
