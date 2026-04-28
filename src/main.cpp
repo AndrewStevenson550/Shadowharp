@@ -20,7 +20,7 @@ void loop() {
   // Get distance as a float for better precision
   float distance = distanceSensor.measureDistanceCm();
 
-  // Print distance to the Serial Monitor so you can see it on your iPad
+  
   Serial.print("Distance: ");
   Serial.print(distance);
   Serial.println(" cm");
