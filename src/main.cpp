@@ -1,22 +1,51 @@
 #include <Arduino.h>
+#include <HCSR04.h>
 
-// Most ESP32 boards have an internal LED on Pin 2
-const int redLed = 2;
 const int greenLed = 4;
+const byte echoPin = 18;
+const byte triggerPin = 5;
+const int soundPin = 19;
+
+UltraSonicDistanceSensor distanceSensor(triggerPin, echoPin);
 
 void setup() {
-  pinMode(redLed, OUTPUT);
+  Serial.begin(115200); // Start the communication at high speed
   pinMode(greenLed, OUTPUT);
-
+  pinMode(soundPin, OUTPUT);
   digitalWrite(greenLed, HIGH);
+  Serial.println("System Online...");
 }
 
 void loop() {
-  digitalWrite(redLed, HIGH);
-  
-  delay(500);
-  
-  digitalWrite(redLed, LOW);
-  
-  delay(500);
+  // Get distance as a float for better precision
+  float distance = distanceSensor.measureDistanceCm();
+
+  // Print distance to the Serial Monitor so you can see it on your iPad
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  if (distance > 0 && distance < 200) {
+    if (distance < 15) {
+      // Danger level high: Constant Tone
+      digitalWrite(soundPin, HIGH);
+    } 
+    else if (distance < 50) {
+      // Danger level medium: Pulsing Tone
+      digitalWrite(soundPin, HIGH);
+      delay(100);
+      digitalWrite(soundPin, LOW);
+      delay(100);
+    } 
+    else {
+      // Safe distance: Turn off buzzer
+      digitalWrite(soundPin, LOW);
+    }
+  } 
+  else {
+    // Out of range or error: Turn off buzzer
+    digitalWrite(soundPin, LOW);
+  }
+
+  delay(50); // Small delay to keep the simulation smooth
 }

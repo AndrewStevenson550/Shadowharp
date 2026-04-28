@@ -5,18 +5,26 @@
   "parts": [
     { "type": "board-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0 },
     { "type": "wokwi-breadboard-half", "id": "bb1", "top": 180, "left": 0 },
-    { "type": "wokwi-led", "id": "led1", "top": 130, "left": 40, "attrs": { "color": "red" } },
-    { "type": "wokwi-led", "id": "led2", "top": 130, "left": 90, "attrs": { "color": "green" } }
+    { "type": "wokwi-led", "id": "led-green", "top": 130, "left": 40, "attrs": { "color": "green" } },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic", "top": -120, "left": 180 },
+    { "type": "wokwi-buzzer", "id": "haptic", "top": 250, "left": 200, "attrs": { "volume": "0.1" } }
   ],
   "connections": [
-    
-    [ "esp:D2", "bb1:5.j", "red", [ "v0" ] ],
-    [ "bb1:5.f", "led1:A", "red", [ "v0" ] ],
-    [ "esp:GND.1", "led1:C", "black", [ "v0" ] ],
 
-    
-    [ "esp:D4", "bb1:10.j", "green", [ "v0" ] ],
-    [ "bb1:10.f", "led2:A", "green", [ "v0" ] ],
-    [ "esp:GND.2", "led2:C", "black", [ "v0" ] ]
+    [ "esp:GND.1", "bb1:gnd.1", "black", [ "v0" ] ],
+    [ "esp:3V3", "bb1:vcc.1", "red", [ "v0" ] ],
+
+    [ "esp:D2", "bb1:5.j", "green", [ "v0" ] ],
+    [ "bb1:5.f", "led-green:A", "green", [ "v0" ] ],
+    [ "bb1:gnd.1", "led-green:C", "black", [ "v0" ] ],
+
+    [ "bb1:vcc.1", "ultrasonic:VCC", "red", [ "v0" ] ],
+    [ "bb1:gnd.1", "ultrasonic:GND", "black", [ "v0" ] ],
+    [ "esp:D5", "ultrasonic:TRIG", "blue", [ "v0" ] ],
+    [ "esp:D18", "ultrasonic:ECHO", "orange", [ "v0" ] ],
+
+  
+    [ "bb1:gnd.1", "haptic:GND", "black", [ "v0" ] ],
+    [ "esp:D19", "haptic:POS", "purple", [ "v0" ] ]
   ]
 }
